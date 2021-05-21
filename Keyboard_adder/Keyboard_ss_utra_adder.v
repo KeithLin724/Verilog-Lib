@@ -117,11 +117,3 @@ module Keyboard_ss_utra_adder_main(
     );
     
 endmodule
-
- /* if (get_data_states) begin 
-                    ab_number [switch] <= input_num ; 
-                    show_num_data[0] <= ab_number [switch] ; 
-                 end 
-                 else begin 
-                    show_num_data[0] <= ab_number [switch] ; 
-                 end */
