@@ -19,6 +19,19 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
+module Div_n_Frequency_keyboard(
+    input  clk,
+    output reg  o_clk
+    );
+    reg[27:0] counter=28'd0;
+    parameter DIVISOR = 28'd100000;// 1000 hz
+    always @(posedge clk) begin
+    counter <= counter + 28'd1;
+     if(counter>=(DIVISOR-1)) counter <= 28'd0;
+    o_clk <= (counter<DIVISOR/2)?1'b1:1'b0;
+    end
+    
+endmodule
 
 module Keyboard_SS_ultar(
     input clk ,
@@ -35,11 +48,11 @@ module Keyboard_SS_ultar(
     reg [7:0]light_on = 8'b00000001 ; // set light code 
     
     eight_pin_keyborad EPK(
-    .clk(clk) ,
-    .in_key(in_key) , //  EFG  pin
-    .out_singal(out_singal) , // ABCD  pin 
-    
-    .out_code_number(out_code_number)
+        .clk(clk) ,
+        .in_key(in_key) , //  EFG  pin
+        .out_singal(out_singal) , // ABCD  pin 
+
+        .out_code_number(out_code_number)
     );
     
     always @(out_code_number) begin 
@@ -51,13 +64,13 @@ module Keyboard_SS_ultar(
         end 
     end 
     Seven_segment_display_ultra SS_U(
-    .light_on(light_on) ,
-    .BCD(out_code_number) ,
-    .DP(DP),  
-    
-    .light_code(light_code),// lightcode on
-    .decode(decode) ,
-    .DP_out(DP_out)
+        .light_on(light_on) ,
+        .BCD(out_code_number) ,
+        .DP(DP),  
+
+        .light_code(light_code),// lightcode on
+        .decode(decode) ,
+        .DP_out(DP_out)
     
     );
     
